@@ -16,7 +16,13 @@ module.exports = {
   create: async (req, res) => {
     if (req.user?.isAdmin) {
       req.body.isAdmin = false;
+
       const data = await User.create(req.body);
+      const tokenData = await Token.create({
+        userId: data._id,
+        token: passwordEncrypt(data._id + Date.now()),
+      });
+
       SendMail(
         data.email,
         "User Registration created succesfully",
@@ -26,16 +32,23 @@ module.exports = {
         error: false,
         message: "User created successfully",
         data,
+        token: tokenData.token,
       });
     } else {
       req.body.isAdmin = false;
       req.body.isStaff = false;
       const data = await User.create(req.body);
+      const tokenData = await Token.create({
+        userId: data._id,
+        token: passwordEncrypt(data._id + Date.now()),
+      });
+
       SendMail(data.email, "User Registration", "Welcome to Capstone Blog App");
       res.status(200).send({
         error: false,
         message: "User created successfully",
         data,
+        token: tokenData.token,
       });
     }
   },
