@@ -21,7 +21,7 @@ module.exports = async (to, subject, message) => {
       html: message,
     },
     (error, info) => {
-      error ? console.log(err) : console.log(info);
+      error ? console.log(error) : console.log(info);
     }
   );
 };

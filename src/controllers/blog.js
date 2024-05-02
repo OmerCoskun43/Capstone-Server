@@ -57,7 +57,10 @@ module.exports = {
   update: async (req, res) => {
     const blog = await Blog.findOne({ _id: req.params.id });
 
-    if (req.user._id == blog.userId || req.user.isAdmin) {
+    if (
+      req.user?._id.toString() == blog.userId.toString() ||
+      req.user?.isAdmin
+    ) {
       const data = await Blog.updateOne({ _id: req.params.id }, req.body);
       res.status(data.modifiedCount ? 201 : 400).send({
         error: !data.modifiedCount,
@@ -77,7 +80,7 @@ module.exports = {
   delete: async (req, res) => {
     const blog = await Blog.findOne({ _id: req.params.id });
 
-    if (req.user._id == blog.userId || req.user.isAdmin) {
+    if (req.user._id.toString() == blog.userId.toString() || req.user.isAdmin) {
       const data = await Blog.deleteOne({ _id: req.params.id });
       res.status(data.deletedCount ? 202 : 400).send({
         error: !data.deletedCount,

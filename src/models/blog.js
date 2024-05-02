@@ -34,7 +34,7 @@ const BlogSchema = new mongoose.Schema(
 
     isPublish: {
       type: Boolean,
-      default: Math.floor(Math.random() * 100) % 2 == 0 ? true : false,
+      default: true,
     },
 
     likes: [
