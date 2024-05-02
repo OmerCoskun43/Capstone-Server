@@ -22,7 +22,9 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    let blog = await Blog.findOne({ _id: req.params.id });
+    let blog = await Blog.findOne({ _id: req.params.id }).populate(
+      "categoryId"
+    );
     if (!blog) {
       res.errorStatusCode = 404;
       throw new Error("Blog not found");
