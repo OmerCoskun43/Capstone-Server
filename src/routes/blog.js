@@ -19,6 +19,6 @@ router.route("/").get(list).post(isLogin, create);
 router.use(isLogin);
 router.route("/:id").get(read).put(update).patch(update).delete(_delete);
 
-router.route("/:id/like").get(like);
+router.route("/like/:id").get(like);
 
 module.exports = router;
