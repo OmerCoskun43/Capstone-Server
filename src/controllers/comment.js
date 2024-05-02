@@ -74,13 +74,21 @@ module.exports = {
   },
 
   blogComments: async (req, res) => {
-    const data = await res.getModelList(Comment, { blogId: req.params.id });
+    const data = await res.getModelList(
+      Comment,
+      { blogId: req.params.id },
+      "userId"
+    );
     res.status(200).send({
       error: false,
       message: "Comments listed successfully",
-      details: await res.getModelListDetails(Comment, {
-        blogId: req.params.id,
-      }),
+      details: await res.getModelListDetails(
+        Comment,
+        {
+          blogId: req.params.id,
+        },
+        "userId"
+      ),
       data,
     });
   },
