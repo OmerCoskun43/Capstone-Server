@@ -40,12 +40,14 @@ module.exports = {
       );
       res.status(201).send({
         error: false,
+        data: blog,
         message: "Blog visitor increased successfully",
       });
     } else {
       res.status(201).send({
         error: false,
         message: "You have already visited this blog",
+        data: blog,
       });
     }
   },
