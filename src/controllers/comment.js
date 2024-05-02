@@ -4,7 +4,8 @@ const Comment = require("../models/comment");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await Comment.find({});
+    const data = await Comment.find({}).sort({ $natural: -1 });
+
     console.log("data ==>", data);
     console.log("data ==>", data.length);
     res.status(200).send({
