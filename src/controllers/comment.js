@@ -4,7 +4,9 @@ const Comment = require("../models/comment");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await res.getModelList(Comment);
+    const data = await Comment.find({});
+    console.log("data ==>", data);
+    console.log("data ==>", data.length);
     res.status(200).send({
       error: false,
       message: "Comments listed successfully",
@@ -55,8 +57,9 @@ module.exports = {
 
   delete: async (req, res) => {
     const comment = await Comment.findOne({ _id: req.params.id });
+    console.log("comment ==>", comment);
     if (
-      req.user._id.toString() == comment.userId.toString() ||
+      req.user._id.toString() == comment?.userId._id.toString() ||
       req.user.isAdmin
     ) {
       const data = await Comment.deleteOne({ _id: req.params.id });
